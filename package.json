@@ -1,0 +1,20 @@
+{
+  "name": "study-refactoring-book",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/free-ko/study-refactoring-book.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/free-ko/study-refactoring-book/issues"
+  },
+  "homepage": "https://github.com/free-ko/study-refactoring-book#readme",
+  "type": "module"
+}

@@ -1,1 +1,1 @@
-import statement from "./statement";
+import statement from "./statement/statement.js";
