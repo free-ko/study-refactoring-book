@@ -36,22 +36,22 @@ export default function statement(invoice, plays) {
 // statement함수 안에 밑에 코드가 있을 경우
 // 일일히 코드를 파악해야 하며, 이러한 코드는 휘발성이 높다
 // 그렇기 때문에 밑에 처럼 함수로 추출하여, 위에 코드에 반영해 가독성을 높인다.
-function amountFor(perf, play) {
+function amountFor(aPerformance, play) {
   let result = 0;
 
   switch (play.type) {
     case "tragedy":
       result = 40000;
-      if (perf.audience > 30) {
-        result += 1000 * (perf.audience - 30);
+      if (aPerformance.audience > 30) {
+        result += 1000 * (aPerformance.audience - 30);
       }
       break;
     case "comedy":
       result = 30000;
-      if (perf.audience > 20) {
-        result += 10000 + 500 * (perf.audience - 20);
+      if (aPerformance.audience > 20) {
+        result += 10000 + 500 * (aPerformance.audience - 20);
       }
-      result += 300 * perf.audience;
+      result += 300 * aPerformance.audience;
       break;
     default:
       throw new Error(`알 수 없는 장르: ${play.type}`);
