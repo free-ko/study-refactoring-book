@@ -47,16 +47,24 @@ export default function statement(invoice, plays) {
   }
 
   function totalVolumeCredits() {
-    let volumeCredits = 0;
+    let result = 0;
 
     for (const perf of invoice[0].performance) {
-      volumeCredits += volumeCreditsFor(perf);
+      result += volumeCreditsFor(perf);
     }
 
-    return volumeCredits;
+    return result;
   }
 
-  let totalAmount = 0;
+  function totalAmount() {
+    let result = 0;
+
+    for (let perf of invoice[0].performance) {
+      result += amountFor(perf);
+    }
+    return result;
+  }
+
   let result = `청구 내역(고객명 : ${invoice[0].customer})\n`;
 
   for (const perf of invoice[0].performance) {
@@ -64,10 +72,9 @@ export default function statement(invoice, plays) {
     result += `${playFor(perf).name}: ${usd(amountFor(perf) / 100)} (${
       perf.audience
     }석)\n`;
-    totalAmount += amountFor(perf);
   }
 
-  result += `총액: ${usd(totalAmount / 100)}\n`;
+  result += `총액: ${usd(totalAmount())}\n`;
   result += `적립 포인트: ${totalVolumeCredits()}점\n`;
 
   return result;
