@@ -1,11 +1,15 @@
 export default function statement(invoice, plays) {
-  return renderPlainText(invoice, plays);
+  const statementData = {};
+  statementData.customer = invoice[0].customer;
+  statementData.performances = invoice[0].performances;
+
+  return renderPlainText(statementData, plays);
 }
 
-function renderPlainText(invoice, plays) {
-  let result = `청구 내역(고객명 : ${invoice[0].customer})\n`;
+function renderPlainText(data, plays) {
+  let result = `청구 내역(고객명 : ${data.customer})\n`;
 
-  for (const perf of invoice[0].performance) {
+  for (const perf of data.performances) {
     // 청구 내역을 출력한다.
     result += `${playFor(perf).name}: ${usd(amountFor(perf) / 100)} (${
       perf.audience
@@ -20,7 +24,7 @@ function renderPlainText(invoice, plays) {
   function totalAmount() {
     let result = 0;
 
-    for (let perf of invoice[0].performance) {
+    for (let perf of data.performances) {
       result += amountFor(perf);
     }
     return result;
@@ -29,7 +33,7 @@ function renderPlainText(invoice, plays) {
   function totalVolumeCredits() {
     let result = 0;
 
-    for (const perf of invoice[0].performance) {
+    for (const perf of data.performances) {
       result += volumeCreditsFor(perf);
     }
 
