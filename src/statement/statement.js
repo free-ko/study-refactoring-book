@@ -1,4 +1,8 @@
 export default function statement(invoice, plays) {
+  return renderPlainText(invoice, plays);
+}
+
+function renderPlainText(invoice, plays) {
   let result = `청구 내역(고객명 : ${invoice[0].customer})\n`;
 
   for (const perf of invoice[0].performance) {
