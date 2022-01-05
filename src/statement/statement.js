@@ -9,6 +9,7 @@ export default function statement(invoice, plays) {
     const result = Object.assign({}, aPerformance); // 얕은 복사 수행
     result.play = playFor(result);
     result.amount = amountFor(result);
+    result.volumeCredits = volumeCreditsFor(result);
 
     return result;
   }
@@ -40,9 +41,20 @@ export default function statement(invoice, plays) {
 
     return result;
   }
+
+  function volumeCreditsFor(aPerformance) {
+    let results = 0;
+    results += Math.max(aPerformance.audience - 30, 0);
+
+    if ("comedy" === aPerformance.play.type) {
+      results += Math.floor(aPerformance.audience / 5);
+    }
+
+    return results;
+  }
 }
 
-function renderPlainText(data, plays) {
+function renderPlainText(data) {
   let result = `청구 내역(고객명 : ${data.customer})\n`;
 
   for (const perf of data.performances) {
@@ -56,24 +68,12 @@ function renderPlainText(data, plays) {
 
   return result;
 
-  function volumeCreditsFor(aPerformance) {
-    let results = 0;
-    results += Math.max(aPerformance.audience - 30, 0);
-
-    if ("comedy" === aPerformance.play.type) {
-      results += Math.floor(aPerformance.audience / 5);
-    }
-
-    return results;
-  }
-
-
 
   function totalAmount() {
     let result = 0;
 
     for (let perf of data.performances) {
-      result += perf.amount;
+      result += perf.volumeCredits;
     }
     return result;
   }
