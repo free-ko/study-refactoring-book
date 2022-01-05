@@ -55,23 +55,12 @@ export default function statement(invoice, plays) {
     return results;
   }
 
-  function totalAmount() {
-    let result = 0;
-
-    for (let perf of data.performances) {
-      result += perf.volumeCredits;
-    }
-    return result;
+  function totalAmount(data) {
+    return data.performances.reduce((total, p) => total + p.amount, 0)
   }
 
-  function totalVolumeCredits() {
-    let result = 0;
-
-    for (const perf of data.performances) {
-      result += volumeCreditsFor(perf);
-    }
-
-    return result;
+  function totalVolumeCredits(data) {
+    return data.performances.reduce((total, p) => total + p.volumeCredits, 0)
   }
 }
 
