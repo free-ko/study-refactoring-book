@@ -46,8 +46,9 @@ function createPerformanceCalculator(aPerformance, aPlay) {
 }
 
 class PerformanceCalculator {
-  constructor(aPerformance) {
+  constructor(aPerformance, aPlay) {
     this.performance = aPerformance;
+    this.play = aPlay;
   }
 
   get amount() {
