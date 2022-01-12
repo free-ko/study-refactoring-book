@@ -35,7 +35,7 @@ export default function createStatementData(invoice, plays) {
 }
 
 function createPerformanceCalculator(aPerformance, aPlay) {
-  switch ((aPlay, type)) {
+  switch ((aPlay.type)) {
     case "tragedy":
       return new TragedyCalculator(aPerformance, aPlay);
     case "comedy":
@@ -75,10 +75,10 @@ class TragedyCalculator extends PerformanceCalculator {
 class ComedyCalculator extends PerformanceCalculator {
   get amount() {
     let result = 30000;
-    if (aPerformance.audience > 20) {
-      result += 10000 + 500 * (aPerformance.audience - 20);
+    if (this.performance.audience > 20) {
+      result += 10000 + 500 * (this.performance.audience - 20);
     }
-    result += 300 * aPerformance.audience;
+    result += 300 * this.performance.audience;
 
     return result;
   }
