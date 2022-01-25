@@ -1,3 +1,16 @@
+function sampleProvinceData() {
+  return {
+    name: "Asia",
+    producers: [
+      { name: "Byzantium", cost: 10, production: 9 },
+      { name: "Attalia", cost: 12, production: 10 },
+      { name: "Sinope", cost: 10, production: 6 },
+    ],
+    demand: 30,
+    price: 20
+  }
+}
+
 // JSON 데이터로부터 지역 정보를 읽어 옴
 class Province {
   constructor(doc) {
@@ -12,5 +25,73 @@ class Province {
   addProducer(arg) {
     this._producers.push(arg);
     this.totalProduction += arg.production;
+  }
+
+  get name() {
+    return this._name
+  }
+
+  get producers() {
+    return this._producers.slice();
+  }
+
+  get totalProduction() {
+    return this._totalProduction
+  }
+
+  get totalProduction(arg) {
+    this._totalProduction = arg;
+  }
+
+  get demand() {
+    return this._demand
+  }
+
+  get demand(arg) {
+    this._demand = parseInt(arg);
+  }
+
+  get price() {
+    return this._price
+  }
+
+  get price(arg) {
+    this._price = parseInt(arg)
+  }
+
+  get shortfall() {
+    return this._demand - this.totalProduction
+  }
+}
+
+class Producer {
+  constructor(aProvince, data) {
+    this._province = aProvince;
+    this._cost = data.cost;
+    this._name = data.name;
+    this._production = data.production || 0
+  }
+
+  get name() {
+    return this._name;
+  }
+
+  get cost() {
+    return this._cost
+  }
+
+  get cost(arg) {
+    this._cost = parseInt(arg)
+  }
+
+  get production() {
+    return this._production
+  }
+
+  set production(amountStr) {
+    const amount = parseInt(amountStr);
+    const newProduction = Number.isNaN(amount) ? 0 : amount
+    this._province.totalProduction += newProduction - this._production;
+    this._production = newProduction;
   }
 }
