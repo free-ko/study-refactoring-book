@@ -16,5 +16,8 @@
     "url": "https://github.com/free-ko/study-refactoring-book/issues"
   },
   "homepage": "https://github.com/free-ko/study-refactoring-book#readme",
-  "type": "module"
+  "type": "module",
+  "devDependencies": {
+    "mocha": "^9.2.0"
+  }
 }
