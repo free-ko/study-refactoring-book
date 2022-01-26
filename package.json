@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "test": "jest",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -17,7 +18,5 @@
   },
   "homepage": "https://github.com/free-ko/study-refactoring-book#readme",
   "type": "module",
-  "devDependencies": {
-    "mocha": "^9.2.0"
-  }
+  "devDependencies": {}
 }
