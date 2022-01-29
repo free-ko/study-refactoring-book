@@ -7,28 +7,35 @@ function sampleProvinceData() {
       { name: "Sinope", cost: 10, production: 6 },
     ],
     demand: 30,
-    price: 20
-  }
+    price: 20,
+  };
 }
 
 // JSON 데이터로부터 지역 정보를 읽어 옴
 class Province {
+  _name;
+  _producer;
+  _demand;
+  _price;
+  _producers;
+  _totalProduction;
+
   constructor(doc) {
     this._name = doc.name;
-    this.producer = [];
+    this._producer = [];
     this._totalProduction = 0;
     this._demand = doc.demand;
     this._price = doc.price;
-    doc.producers.forEach(d => this.addProducer(new producer(this, d)))
+    doc.producers.forEach((d) => this.addProducer(new Producer(this, d)));
   }
 
   addProducer(arg) {
     this._producers.push(arg);
-    this.totalProduction += arg.production;
+    this._totalProduction += arg.production;
   }
 
   get name() {
-    return this._name
+    return this._name;
   }
 
   get producers() {
@@ -36,35 +43,35 @@ class Province {
   }
 
   get totalProduction() {
-    return this._totalProduction
+    return this._totalProduction;
   }
 
-  get totalProduction(arg) {
+  set totalProduction(arg) {
     this._totalProduction = arg;
   }
 
   get demand() {
-    return this._demand
+    return this._demand;
   }
 
-  get demand(arg) {
+  set demand(arg) {
     this._demand = parseInt(arg);
   }
 
   get price() {
-    return this._price
+    return this._price;
   }
 
-  get price(arg) {
-    this._price = parseInt(arg)
+  set price(arg) {
+    this._price = parseInt(arg);
   }
 
   get shortfall() {
-    return this._demand - this.totalProduction
+    return this._demand - this.totalProduction;
   }
 
   get profit() {
-    return this.demandValue = this.demandCost;
+    return (this.demandValue = this.demandCost);
   }
 
   get demandValue() {
@@ -72,27 +79,34 @@ class Province {
   }
 
   get satisfiedDemand() {
-    return Math.min(this._demand, this.totalProductions);
+    return Math.min(this._demand, this.totalProduction);
   }
 
   get demandCost() {
     let remainingDemand = this.demand;
     let result = 0;
-    this.producers.sort((a, b) => a.cost - b.cost).forEach(p => {
-      const contribution = Math.min(remainingDemand, p.production);
-      remainingDemand -= contribution;
-      result += contribution * p.cost
-    })
+    this.producers
+      .sort((a, b) => a.cost - b.cost)
+      .forEach((p) => {
+        const contribution = Math.min(remainingDemand, p.production);
+        remainingDemand -= contribution;
+        result += contribution * p.cost;
+      });
     return result;
   }
 }
 
 class Producer {
+  _province;
+  _cost;
+  _name;
+  _production;
+
   constructor(aProvince, data) {
     this._province = aProvince;
     this._cost = data.cost;
     this._name = data.name;
-    this._production = data.production || 0
+    this._production = data.production || 0;
   }
 
   get name() {
@@ -100,23 +114,23 @@ class Producer {
   }
 
   get cost() {
-    return this._cost
+    return this._cost;
   }
 
-  get cost(arg) {
-    this._cost = parseInt(arg)
+  set cost(arg) {
+    this._cost = parseInt(arg);
   }
 
   get production() {
-    return this._production
+    return this._production;
   }
 
   set production(amountStr) {
     const amount = parseInt(amountStr);
-    const newProduction = Number.isNaN(amount) ? 0 : amount
+    const newProduction = Number.isNaN(amount) ? 0 : amount;
     this._province.totalProduction += newProduction - this._production;
     this._production = newProduction;
   }
 }
 
-module.exports = Province
+module.exports = Province;

@@ -1,4 +1,4 @@
-const Province = require('../province.js')
+const Province = require('../province.ts')
 
 function sampleProvinceData() {
   return {
