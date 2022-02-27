@@ -14,25 +14,30 @@ function priceOrder(product, quantity, shippingMethod) {
   return price;
 }
 
-// 함수 추출
+
 function priceOrder(product, quantity, shippingMethod) {
+  const priceData = calculatePricingData(product, quantity)
+
+  return applyShipping(priceData, shippingMethod)
+}
+
+function calculatePricingData(product, quantity) {
   const basePrice = product.basePrice * quantity;
   const discount =
     Math.max(quantity - product.discountThreshold, 0) *
     product.basePrice *
     product.discountRate;
 
-  const price = applyShipping(basePrice, shippingMethod, quantity, discount)
-
-  return price;
+  return { basePrice: basePrice, quantity: quantity, discount: discount }
 }
 
-function applyShipping(basePrice, shippingMethod, quantity, discount) {
+function applyShipping(priceData, shippingMethod) {
   const shippingPerCase =
-    basePrice > shippingMethod.discountThreshold
+    priceData.basePrice > shippingMethod.discountThreshold
       ? shippingMethod.discountedFee
       : shippingMethod.feePerCase;
-  const shippingCost = quantity * shippingPerCase;
-  const price = basePrice - discount + shippingCost;
-  return price
+  const shippingCost = priceData.quantity * shippingPerCase;
+
+  return priceData.basePrice - priceData.discount + shippingCost;
 }
+
