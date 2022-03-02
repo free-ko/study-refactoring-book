@@ -24,8 +24,8 @@ customerData[customerID].usages[year][month] = amount
 
 // 읽기 예
 function compareUsage(customerID, laterYear, month) {
-  const later = customerData[customerID].usages[laterYear][month];
-  const earlier = customerData[customerID].usages[laterYear - 1][month]
+  const later = getCustomerData().usage(customerID, laterYear, month)
+  const earlier = getCustomerData().usage(customerID, laterYear - 1, month);
 
   return { laterAmount: later, change: later - earlier }
 }
@@ -35,6 +35,18 @@ class CustomerData {
   constructor(data) {
     this._data = data;
   }
+
+  usage(customerID, year, month) {
+    return this._data[customerID].usages[year][month]
+  }
+
+  setUsage(customerID, year, month, amount) {
+    this._data[customerID].usages[year][month] = amount;
+  }
+
+  get rawData() {
+    return _.cloneDeep(this._data);  // lodash 라이브러리 제공하는 깊은 복사 cloneDeep이용
+  }
 }
 
 function getCustomerData() {
@@ -42,14 +54,13 @@ function getCustomerData() {
 }
 
 function getRawDataOfCustomers() {
-  return customerData;
+  return customerData.rawData;
 }
 
 function setRawDataOfCustomers(arg) {
-  customerData = arg
+  customerData = new CustomerData(arg)
 }
 
-getRawDataOfCustomers()[customerID].usages[year][month] = amount
 
 function compareUsage(customerID, laterYear, month) {
   const later = getRawDataOfCustomers()[customerID].usages[laterYear][month];
