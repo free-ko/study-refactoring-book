@@ -4,14 +4,21 @@ class Order {
     this._item = item;
   }
 
-  get price() {
-    let basePrice = this._qunatity * this._item.price;
+  get basePrice() {
+    return this._qunatity * this._item.price;
+  }
+
+  get discountFactor() {
     let discountFactor = 0.98;
 
-    if (basePrice > 1000) {
+    if (this.basePrice > 1000) {
       discountFactor -= 0.03;
     }
 
-    return basePrice * discountFactor;
+    return discountFactor;
+  }
+
+  get price() {
+    return this.basePrice * this.discountFactor;
   }
 }
