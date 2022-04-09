@@ -47,5 +47,10 @@ function captainHistoryRisk(voyage, history) {
 }
 
 function hasChina(history) { // 중국을 경유하는가?
+
+  // Some과 Includes 함수 차이
+  // Some은 배열 안의 객체 내부 값을 비교 가능(특정 콜백함수 포함시켜서)
+  // Includes는 배열안에 특정 객체 속성 값 포함 여부 확인 불가
+  // 왜냐하면 Includes === 연산자로 객체 원시값만 비교함
   return history.some(v => "중국" === v.zone);
 }
