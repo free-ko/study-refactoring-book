@@ -30,6 +30,14 @@ class UnknownCustomer {
   get name() {
     return "거주자";
   }
+
+  get billingPlan() {
+    return resigtry.billingPlans.basic;
+  }
+
+  set billingPlan(arg) {
+    //
+  }
 }
 
 function isUnknown(arg) {
