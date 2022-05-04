@@ -14,7 +14,11 @@ class HeatingPlan {
 
 // 호출자
 {
-  if (thePlan.targetTemperatur > thermostat.currentTemperature) setToHeat();
-  else if (thePlan.targetTemperatur > thermostat.currentTemperature) setToCool();
-  else setOff();
+  if (thePlan.xxNEWtargetTemperature(thermostat.selectedTemperature) > thermostat.currentTemperature) {
+    setToHeat();
+  } else if (thePlan.xxNEWtargetTemperature(thermostat.selectedTemperature) < thermostat.currentTemperature) {
+    setToCool();
+  } else {
+    setOff();
+  }
 }
