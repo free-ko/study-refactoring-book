@@ -1,6 +1,6 @@
 // 팩터리 함수
-function createEmployee(name, typeCode) {
-  return new Employee(name, typeCode);
+function createEmployee(name) {
+  return new Employee(name, 'E');
 }
 class Employee {
   constructor(name, typeCode) {
@@ -23,5 +23,4 @@ class Employee {
 }
 
 // 호출자
-const candidate = createEmployee(document.name, document.emType);
-const leadEngineer = createEmployee(document.leadEngineer, 'E');
+const leadEngineer = createEmployee(document.leadEngineer);
