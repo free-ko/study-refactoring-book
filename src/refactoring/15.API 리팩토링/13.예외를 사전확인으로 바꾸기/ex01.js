@@ -6,15 +6,8 @@ class ResourcePool {
   }
 
   get resource() {
-    let result;
-
-    if (available.isEmpty()) {
-      result = this.resource.create();
-      allocated.push(result);
-    } else {
-      result = available.pop();
-      allocated.push(result);
-    }
+    let result = available.isEmpty() ? this.resource.create() : available.pop();
+    allocated.push(result);
 
     return result;
   }
