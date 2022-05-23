@@ -10,11 +10,31 @@ class Employee extends Party {
     this._id = id;
     this._monthlyyCost = monthlyCost;
   }
+
+  get isPrivileged() { }
+
+  assignCar() { }
+
+  finishConstruction() {
+    if (this.isPrivileged) this.assignCar();
+  }
 }
 
 class Department extends Party {
   constructor(name, staff) {
     super(name);
     this._staff = staff;
+  }
+}
+
+class Manager extends Employee {
+  constructor(name, grade) {
+    super(name);
+    this._grade = grade;
+    this.finishConstruction();
+  }
+
+  get isPrivileged() {
+    return this._grade > 4;
   }
 }
